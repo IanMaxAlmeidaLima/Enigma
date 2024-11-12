@@ -1,0 +1,134 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#define TITULO "\n\n\n                                            Correr ou morrer: Desafios do Glacial"
+
+#define MSG_QUIZ "\n\n                \n\n"
+
+char opcQuiz;
+int pontos = 0;
+
+void saida() {
+    if (pontos >= 5) {
+        printf("\tParabéns, você escapou do labirinto! Viveu pra contar mais um dia!\n");
+    } else {
+        printf("Você morreu.\n");
+    }
+}
+
+int questao5() {
+    printf("\nO que Thomas descobre na primeira noite no Glacial sobre o propósito do labirinto?\n\nA) O labirinto é uma prisão onde os jovens são usados para testes militares.\nB) O labirinto é apenas um ambiente de sobrevivência natural sem outros objetivos\nC) O labirinto é um teste projetado por uma organização secreta para selecionar os mais fortes.\nD) O labirinto é uma simulação virtual controlada por inteligência artificial.\n");
+    scanf(" %c", &opcQuiz);
+
+    if (opcQuiz == 'c') {
+        pontos += 1;
+        saida();  // Verificar se os pontos são suficientes
+        return 0;
+    } else {
+        pontos -= 100;
+        printf("\n\nVocê morreu\n\n");
+        return 0;
+    }
+}
+
+int questao4() {
+    printf("\nQuem é o líder dos corredores no Glacial, que guia as expedições diárias em busca de uma saída?\n\nA) Thomas\nB) Newt\nC) Minho\nD) Gally\n");
+    scanf(" %c", &opcQuiz);
+
+    if (opcQuiz == 'c') {
+        pontos += 1;
+        questao5();
+    } else {
+        pontos -= 100;
+        printf("\n\nVocê morreu\n\n");
+        return 0;
+    }
+}
+
+int questao3() {
+    printf("\nThomas encontrou um enigma: (5 + 3) * 2 - (8 / 4) + (7 * 2) - 6\nQual a sua resposta?\n\n   a)48\n   b)54\n   c)63\n   d)22\n");
+    scanf(" %c", &opcQuiz);
+
+    if (opcQuiz == 'd') {  // Supondo que 'd' seja a resposta correta
+        pontos += 1;
+        questao4();
+    } else {
+        pontos -= 100;
+        printf("\n\nVocê morreu\n\n");
+        return 0;
+    }
+}
+
+int questao2() {
+    printf("\nO que é o 'Projeto Aurora', mencionado por Teresa no enredo?\n\nA) Um projeto militar que visa criar soldados para uma nova guerra mundial.\nB) Uma experiência soviética que visa criar líderes adaptáveis para reconstruir o mundo após a catástofre.\nC) Uma nova tecnologia de inteligência artificial para controlar o mundo.\nD) Um programa de recuperação genética para regenerar a população humana.\n");
+    scanf(" %c", &opcQuiz);
+
+    if (opcQuiz == 'b') {
+        pontos += 1;
+        questao3();
+    } else {
+        pontos -= 100;
+        printf("\n\nVocê morreu\n\n");
+        return 0;
+    }
+}
+
+int questao1() {
+    printf("Qual é o nome das criaturas híbridas que patrulham o Glacial e atacam os jovens?\n\nA) Aberrações\nB) Sentinelas\nC) Verdugos\nD) Predadores\n");
+    scanf(" %c", &opcQuiz);
+
+    if (opcQuiz == 'c') {
+        pontos += 1;
+        questao2();
+    } else {
+        pontos -= 100;
+        printf("Você morreu\n");
+        return 0;
+    }
+}
+
+void quiz() {
+    printf("%s", MSG_QUIZ);
+    questao1();
+}
+
+int main() {
+    setlocale(LC_ALL, "Portuguese");
+    printf("%s\n", TITULO);
+
+    int opc;
+    char resp;
+
+    printf("\n\n                             Está pronto para começar o desafio? (1 para sim e 0 para não)\n");
+    scanf("%d", &opc);
+
+    switch (opc) {
+        case 1:
+            quiz();
+            break;
+
+        case 0:
+            printf("    \n      Você achou que sair do labirinto seria o fim? Talvez. Mas lembre-se: nem todas as portas\n      levam à liberdade, e nem toda saída é o que parece. No Glacial, o verdadeiro desafio co-\n      meça quando você pensa que acabou. Continue explorando... pode haver mais do que apenas\n      uma saída esperando por você");
+            quiz();
+            break;
+
+        default:
+            printf(" Valor inválido.\n ");
+            main();  // Reinicia o jogo se a entrada for inválida
+            break;
+    }
+
+    printf("   <<<Voltar ao MENU? (s/n):\n\n");
+    scanf(" %c", &resp);
+
+    if (resp == 's') {
+        main();
+    } else if (resp == 'n') {
+        printf("\n\n");
+        return 0;
+    } else {
+        printf("   Valor inválido.\n\n");
+        main();
+    }
+    return 0;
+}
